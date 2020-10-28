@@ -1,11 +1,11 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import ListView from "./views/ListView"
-import DetailView from "./views/DetailView"
+import List from "./views/List"
+import Details from "./views/Details"
 import "./App.scss"
 
 import Axios from "axios"
-Axios.defaults.baseURL = process.env.BACKENDURL || "https://rest-of-us.herokuapp.com"
+Axios.defaults.baseURL = process.env.BACKENDURL || "https://herokuapp.com"
 
 const App = () => {
   return (
@@ -13,10 +13,10 @@ const App = () => {
       <Router>
         <Switch>
           <Route path="/" exact>
-            <ListView />
+            <List />
           </Route>
           <Route path="/:name">
-            <DetailView />
+            <Details />
           </Route>
         </Switch>
       </Router>

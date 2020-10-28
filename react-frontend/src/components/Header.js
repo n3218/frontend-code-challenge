@@ -1,20 +1,27 @@
 import React from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTh, faBars } from "@fortawesome/free-solid-svg-icons"
 import "./Header.scss"
 
-const Header = ({ pokemonTypes, onSelect, onChange }) => {
+const Header = props => {
+  const { pokemonTypes, setFilterType, setFilterString, toggleAllFavorites, state, toggleView } = props
   return (
     <header>
-      <div className="filter-block">
-        <div className="_button _active">All</div>
-        <div className="_button">Favorites</div>
+      <div className="filter-container">
+        <button className="filter_button" disabled={!state.filter.onlyFavorites} onClick={toggleAllFavorites}>
+          All
+        </button>
+        <button className="filter_button" disabled={state.filter.onlyFavorites} onClick={toggleAllFavorites}>
+          Favorites
+        </button>
       </div>
-      <div className="search-block">
-        <div className="_field _input">
-          <input type="text" defaultValue="" placeholder="Search" onChange={e => onChange(e)} />
+      <div className="search-container">
+        <div className="search_field _input">
+          <input type="text" defaultValue="" placeholder="Search" onChange={e => setFilterString(e)} />
         </div>
-        <div className="_field _select">
-          <select name="select" onChange={e => onSelect(e)}>
-            <option>Type</option>
+        <div className="search_field _select">
+          <select id="select" name="select" onChange={e => setFilterType(e)}>
+            <option value="">Type</option>
             {pokemonTypes.map(type => (
               <option key={type} value={type}>
                 {type}
@@ -22,11 +29,13 @@ const Header = ({ pokemonTypes, onSelect, onChange }) => {
             ))}
           </select>
         </div>
-        <div className="_view">
-          <div>line</div>
-        </div>
-        <div className="_view">
-          <div>block</div>
+        <div className="search_view-container">
+          <button className="search_view" disabled={!state.gridView} onClick={toggleView}>
+            <FontAwesomeIcon icon={faBars} />
+          </button>
+          <button className="search_view" disabled={state.gridView} onClick={toggleView}>
+            <FontAwesomeIcon icon={faTh} />
+          </button>
         </div>
       </div>
     </header>
